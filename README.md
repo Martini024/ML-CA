@@ -1,7 +1,7 @@
 # Machine Learning -- Continuous Assessment
 
 ## Dataset
-:mushroom:[mushroom.csv](https://www.kaggle.com/uciml/mushroom-classification/download)
+:mushroom: [mushroom.csv](https://www.kaggle.com/uciml/mushroom-classification/download)
 
 ## Classification -- Supervised learning
 - Logistic Regression
