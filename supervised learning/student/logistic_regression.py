@@ -46,16 +46,25 @@ logistic_regression(
 
 # Output:
 # All variables used
-# 0.9495798319327731
-# [[32  2]
+# Accuracy Score:  0.9495798319327731
+# Confusion Matrix:
+#  [[32  2]
 #  [ 4 81]]
+# Training Time: 0.06660985946655273s
+# Predict Time: 0.0009162425994873047s
 
 # All variables used except G2
-# 0.8151260504201681
-# [[30  4]
+# Accuracy Score:  0.8151260504201681
+# Confusion Matrix:
+#  [[30  4]
 #  [18 67]]
+# Training Time: 0.05706286430358887s
+# Predict Time: 0.0007030963897705078s
 
 # All variables used except G1 G2
-# 0.680672268907563
-# [[17 17]
+# Accuracy Score:  0.680672268907563
+# Confusion Matrix:
+#  [[17 17]
 #  [21 64]]
+# Training Time: 0.02388310432434082s
+# Predict Time: 0.0008029937744140625s
