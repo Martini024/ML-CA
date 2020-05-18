@@ -8,6 +8,7 @@ categorical_feature_mask = df.dtypes == object
 categorical_cols = df.columns[categorical_feature_mask].tolist()
 numerical_feature_mask = df.dtypes == 'int64'
 numerical_cols = df.columns[numerical_feature_mask].tolist()
+numerical_cols = numerical_cols[: -3]
 
 # perform label encoding to categorical columns
 le = LabelEncoder()
