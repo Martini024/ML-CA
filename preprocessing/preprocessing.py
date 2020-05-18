@@ -1,7 +1,7 @@
 import pandas as pd
 from sklearn.preprocessing import LabelEncoder, OneHotEncoder, StandardScaler
 
-df = pd.read_csv('data/student/student-mat.csv', sep=';')
+df = pd.read_csv('data/student/student-mat.csv')
 
 # split columns as categorical and numerical
 categorical_feature_mask = df.dtypes == object
@@ -24,4 +24,4 @@ scaler = StandardScaler()
 df[numerical_cols] = scaler.fit_transform(df[numerical_cols])
 
 # export as processed csv file
-df.to_csv('data/student/student-mat-processed.csv')
+df.to_csv('data/student/student-mat-processed.csv', index=False)
