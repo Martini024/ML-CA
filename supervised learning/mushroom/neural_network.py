@@ -7,7 +7,7 @@ from keras.models import Sequential
 from keras import layers
 from sklearn.metrics import accuracy_score, confusion_matrix
 
-df = pd.read_csv('data/mushrooms.csv')
+df = pd.read_csv('data/mushroom/mushrooms.csv')
 
 df = df.apply(lambda x: pd.factorize(x)[0])
 
