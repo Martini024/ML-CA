@@ -17,7 +17,7 @@ def feature_selection(df, target, show_heat_map=False):
         (corr_mat[target_name] > 0.5) | (corr_mat[target_name] < -0.5)
     ].values
     candidates = candidates[candidates != target_name]
-    print('Correlated to', target, ': ', candidates)
+    print('Correlated to', target_name, ': ', candidates)
 
     removed = []
     for c1 in candidates:
