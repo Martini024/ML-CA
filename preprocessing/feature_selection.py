@@ -36,6 +36,6 @@ def feature_selection(df, target, show_heat_map=False):
 
 # test example
 # feature_selection('data/student/student-mat-fully-processed.csv', 'G3')
-df = pd.read_csv('data/mushroom/mushrooms-processed.csv')
-y = df['class']
-print(feature_selection(df, y))
+# df = pd.read_csv('data/mushroom/mushrooms-l.csv')
+# y = df['class']
+# print(feature_selection(df, y))

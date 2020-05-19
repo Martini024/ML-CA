@@ -12,12 +12,6 @@ def pca(x, y, n_components, show_plot=False):
     if show_plot:
         colors = 'rgbkcmy'
 
-        rmap = {
-            'Iris-setosa': 0,
-            'Iris-versicolor': 1,
-            'Iris-virginica': 2,
-        }
-
         unique_y = np.unique(y)
         for i in range(len(unique_y)):
             plt.scatter(pc[y == unique_y[i], 0], pc[y == unique_y[i], 1],
@@ -30,20 +24,19 @@ def pca(x, y, n_components, show_plot=False):
         plt.ylabel('Principal Component 2')
         plt.show()
 
-    print(pca.explained_variance_ratio_)
-    print(pca.explained_variance_ratio_.sum())
+    # print(pca.explained_variance_ratio_)
+    # print(pca.explained_variance_ratio_.sum())
 
     columns = []
     for i in range(len(pca.components_)):
         columns.append('principal component ' + str(i + 1))
-    print(columns)
     pcDf = pd.DataFrame(data=pc, columns=columns)
     finalDf = pd.concat([pcDf, y], axis=1)
     return finalDf
 
 
-df = pd.read_csv('data/mushroom/mushrooms-processed.csv')
+# df = pd.read_csv('data/mushroom/mushrooms-processed.csv')
 
-y = df.loc[:, 'class']
-x = df.iloc[:, 1:-1]
-print(pca(x, y, 4))
+# y = df.loc[:, 'class']
+# x = df.iloc[:, 1:-1]
+# print(pca(x, y, 4))

@@ -2,15 +2,17 @@ import pandas as pd
 from sklearn.preprocessing import LabelEncoder, OneHotEncoder, StandardScaler
 
 
-def preprocessing(df, y, perform_ohe=False, perform_scale=False, scaler=StandardScaler(), output_Path=None, index=False):
+def preprocessing(data, y, perform_ohe=False, drop_first=False, perform_scale=False, scaler=StandardScaler(), output_Path=None, index=False):
     # split columns as categorical and numerical, don't perform scale to numerical y
-    is_numerical = df[y].dtypes == 'int64'
+    df = data.copy()
+    is_numerical = y.dtypes == 'int64'
 
     categorical_feature_mask = df.dtypes == object
     categorical_cols = df.columns[categorical_feature_mask].tolist()
     numerical_feature_mask = df.dtypes == 'int64'
     if is_numerical:
-        numerical_cols = df.columns[numerical_feature_mask].drop(y).tolist()
+        numerical_cols = df.columns[numerical_feature_mask].drop(
+            y.name).tolist()
     else:
         numerical_cols = df.columns[numerical_feature_mask].tolist()
 
@@ -23,9 +25,9 @@ def preprocessing(df, y, perform_ohe=False, perform_scale=False, scaler=Standard
     if perform_ohe:
         if not is_numerical:
             categorical_cols = df.columns[categorical_feature_mask].drop(
-                y).tolist()
+                y.name).tolist()
         df = df.join(pd.get_dummies(
-            df[categorical_cols], columns=categorical_cols, prefix=categorical_cols))
+            df[categorical_cols], columns=categorical_cols, prefix=categorical_cols, drop_first=drop_first))
         df = df.drop(categorical_cols, 1)
 
     # perform standardization(zero-mean, unit variance) to numerical columns
@@ -37,7 +39,3 @@ def preprocessing(df, y, perform_ohe=False, perform_scale=False, scaler=Standard
     if output_Path != None:
         df.to_csv(output_Path, index=index)
     return df
-
-
-df = pd.read_csv('data/mushroom/mushrooms.csv')
-preprocessing(df, 'class', output_Path='data/mushroom/mushrooms-processed.csv')
