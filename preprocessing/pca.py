@@ -24,8 +24,8 @@ def pca(x, y, n_components, show_plot=False):
         plt.ylabel('Principal Component 2')
         plt.show()
 
-    # print(pca.explained_variance_ratio_)
-    # print(pca.explained_variance_ratio_.sum())
+    print(pca.explained_variance_ratio_, len(pca.explained_variance_))
+    print(pca.explained_variance_ratio_.sum())
 
     columns = []
     for i in range(len(pca.components_)):
