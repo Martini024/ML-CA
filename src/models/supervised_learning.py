@@ -1,7 +1,6 @@
 import pandas as pd
 import numpy as np
 import matplotlib.pyplot as plt
-from tabulate import tabulate
 from sklearn.model_selection import train_test_split
 from sklearn.neighbors import KNeighborsClassifier
 from sklearn.tree import DecisionTreeClassifier
@@ -28,9 +27,8 @@ def linear_regression(x, y, test_size=0.3, log_time=True):
     y_pred = linReg.predict(X_test)
     end_pred = time()
 
-    val.append([r2_score(y_test, y_pred), end_train -
-                start, end_pred - end_train])
-    return tabulate(val, headers=header)
+    return [r2_score(y_test, y_pred), end_train -
+            start, end_pred - end_train]
 
 
 def logistic_regression(x, y, test_size=0.3, max_iter=1000, log_time=True):
@@ -49,9 +47,8 @@ def logistic_regression(x, y, test_size=0.3, max_iter=1000, log_time=True):
     y_pred = logReg.predict(X_test)
     end_pred = time()
 
-    val.append([accuracy_score(y_test, y_pred), confusion_matrix(
-        y_test, y_pred), end_train - start, end_pred - end_train])
-    return tabulate(val, headers=header)
+    return [accuracy_score(y_test, y_pred), confusion_matrix(
+        y_test, y_pred), end_train - start, end_pred - end_train]
 
 
 def knn(x, y, test_size=0.3, n_neighbors=10, log_time=True):
@@ -69,13 +66,11 @@ def knn(x, y, test_size=0.3, n_neighbors=10, log_time=True):
     y_pred = knn.predict(X_test)
     end_pred = time()
 
-    val.append([accuracy_score(y_test, y_pred), confusion_matrix(
-        y_test, y_pred), end_train - start, end_pred - end_train])
-    return tabulate(val, headers=header)
+    return [accuracy_score(y_test, y_pred), confusion_matrix(
+        y_test, y_pred), end_train - start, end_pred - end_train]
 
 
 def decision_tree(x, y, test_size=0.3, log_time=True):
-    val = []
     header = ['Accuracy Score', 'Confusion Matrix',
               'Training Time', 'Predict Time']
     X_train, X_test, y_train, y_test = train_test_split(
@@ -90,15 +85,11 @@ def decision_tree(x, y, test_size=0.3, log_time=True):
     y_pred = dect.predict(X_test)
     end_pred = time()
 
-    val.append([accuracy_score(y_test, y_pred), confusion_matrix(
-        y_test, y_pred), end_train - start, end_pred - end_train])
-    return tabulate(val, headers=header)
+    return [accuracy_score(y_test, y_pred), confusion_matrix(
+        y_test, y_pred), end_train - start, end_pred - end_train]
 
 
 def neural_network(x, y, test_size=0.3, log_time=True):
-    val = []
-    header = ['Accuracy Score', 'Confusion Matrix',
-              'Training Time', 'Predict Time']
     X_train, X_test, y_train, y_test = train_test_split(
         x.values, y.values, test_size=0.3, random_state=24)
     y_train = np.array([[0] if x == 0 else [1] for x in y_train])
@@ -125,9 +116,8 @@ def neural_network(x, y, test_size=0.3, log_time=True):
     # perform prediction (let's eye-ball the results)
     y_pred = model.predict(X_test)
     end_pred = time()
-    # for i in np.arange(len(predictions)):
+    # for i in np.arange(len(predictions))s:
     #     print('Actual: ', y_test_ohe[i], ', Predicted: ', predictions[i])
 
-    val.append([accuracy_score(y_test, y_pred.round()), confusion_matrix(
-        y_test, y_pred.round()), end_train - start, end_pred - end_train])
-    return tabulate(val, headers=header)
+    return [accuracy_score(y_test, y_pred.round()), confusion_matrix(
+        y_test, y_pred.round()), end_train - start, end_pred - end_train]

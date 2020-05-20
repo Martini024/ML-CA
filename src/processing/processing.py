@@ -108,4 +108,7 @@ def feature_selection(df, target, show_heat_map=False, show_process=False):
     selected_features = [x for x in candidates if x not in removed]
     if show_process:
         print('Selected features: ', selected_features)
-    return pd.concat([df[selected_features], target], axis=1)
+    if len(selected_features) == 0:
+        return df
+    else:
+        return pd.concat([df[selected_features], target], axis=1)
