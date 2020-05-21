@@ -1,6 +1,6 @@
-from models.supervised_learning import *
-from models.unsupervised_learning import *
-from processing.processing import preprocessing, feature_selection, pca
+from supervised_learning import *
+from unsupervised_learning import *
+from processing import preprocessing, feature_selection, pca
 import pandas as pd
 import seaborn as sns
 

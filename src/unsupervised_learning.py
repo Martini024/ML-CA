@@ -3,7 +3,7 @@ import matplotlib.pyplot as plt
 import pandas as pd
 from sklearn.cluster import KMeans
 from mpl_toolkits.mplot3d import Axes3D
-from processing.processing import preprocessing, pca
+from processing import preprocessing, pca
 
 
 def kmeans(df, y, n_clusters=2):
