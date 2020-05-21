@@ -6,7 +6,7 @@ from sklearn.neighbors import KNeighborsClassifier
 from sklearn.tree import DecisionTreeClassifier
 from sklearn.linear_model import LinearRegression
 from sklearn.linear_model import LogisticRegression
-from sklearn.metrics import accuracy_score, confusion_matrix
+from sklearn.metrics import accuracy_score, confusion_matrix, r2_score
 from keras.layers.core import Dense, Activation
 from keras.models import Sequential
 from keras import layers
@@ -26,7 +26,7 @@ def linear_regression(x, y, test_size=0.3, log_time=True):
 
     y_pred = linReg.predict(X_test)
     end_pred = time()
-
+    print(linReg.score(X_test, y_test))
     return [r2_score(y_test, y_pred), end_train -
             start, end_pred - end_train]
 
@@ -98,8 +98,7 @@ def neural_network(x, y, test_size=0.3, log_time=True):
     model = Sequential(
         [
             layers.Dense(128, activation='relu'),
-            layers.Dense(64, activation='relu'),
-            layers.Dense(32, activation='relu'),
+            # layers.Dense(64, activation='relu'),
             layers.Dense(1, activation='sigmoid')
         ]
     )
@@ -109,13 +108,14 @@ def neural_network(x, y, test_size=0.3, log_time=True):
     model.fit(X_train, y_train, batch_size=64, epochs=5, verbose=0)
     end_train = time()
 
-    # perform auto-evaluation
-    loss, accuracy = model.evaluate(X_test, y_test, verbose=0)
-    # print('Loss = ', loss, ', Accuracy = ', accuracy)
-
     # perform prediction (let's eye-ball the results)
     y_pred = model.predict(X_test)
     end_pred = time()
+
+    # perform auto-evaluation
+    loss, accuracy = model.evaluate(X_test, y_test, verbose=0)
+
+    # print('Loss = ', loss, ', Accuracy = ', accuracy)
     # for i in np.arange(len(predictions))s:
     #     print('Actual: ', y_test_ohe[i], ', Predicted: ', predictions[i])
 
