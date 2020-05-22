@@ -50,11 +50,11 @@ def classification_model_comparison(data, y, name, log_matrix=True, show_plot=Fa
                           out_path='reports/supervised_learning/' + name + '/logistic_regression_' + name + '.csv')
 
     res = res.append(input_comprison(data, y, model=knn, log_matrix=log_matrix,
-                                     out_path='reports/supervised_learning/' + name + '/logistic_regression_' + name + '.csv'))
+                                     out_path='reports/supervised_learning/' + name + '/knn_' + name + '.csv'))
     res = res.append(input_comprison(data, y, model=decision_tree, log_matrix=log_matrix,
-                                     out_path='reports/supervised_learning/' + name + '/logistic_regression_' + name + '.csv'))
+                                     out_path='reports/supervised_learning/' + name + '/decision_tree_' + name + '.csv'))
     res = res.append(input_comprison(data, y, model=neural_network, log_matrix=log_matrix,
-                                     out_path='reports/supervised_learning/' + name + '/logistic_regression_' + name + '.csv'))
+                                     out_path='reports/supervised_learning/' + name + '/neural_network_' + name + '.csv'))
     if show_plot:
         model = ['logistic regression'] * 5 + ['knn'] * 5 + \
             ['decision_tree'] * 5 + ['neural_network'] * 5
@@ -85,22 +85,31 @@ def classification_model_comparison(data, y, name, log_matrix=True, show_plot=Fa
 
 # classification_model_comparison(df, y, 'student', log_matrix=True)
 
-# df = preprocessing(data=df, y=df[y], perform_scale=True)
+# df = preprocessing(
+#     data=df, y=df[y], perform_scale=True, perform_ohe=True, drop_first=True)
 # df = feature_selection(df=df, target=df[y], show_process=False)
-# print(linear_regression(
-#     df.loc[:, df.columns.difference(['G3'])], df['G3']))
+# print(linear_regression(df.loc[:, df.columns.difference(['G3'])], df['G3']))
+
 
 # df = pd.read_csv('data/wine/winequality-red.csv')
 # df['quality'] = df['quality'].apply(lambda x: 0 if x >= 5 else 1)
 # y = 'quality'
-# kmeans(df, y)
-# dbscan(df, y, eps=2.5, min_samples=20)
-# # classification_model_comparison(df, y, 'wine', log_matrix=False)
-# # # print(linear_regression(
-# # #     df.loc[:, df.columns.difference(['quality'])], df['quality']))
+# # kmeans(df, y)
+# # dbscan(df, y, eps=2.5, min_samples=20)
+# classification_model_comparison(df, y, 'wine', log_matrix=True)
+# df = preprocessing(data=df, y=df[y], perform_scale=False)
+# print(linear_regression(
+#     df.loc[:, df.columns.difference(['quality'])], df['quality']))
+
 
 # df = pd.read_csv('data/mushroom/mushrooms.csv')
 # y = 'class'
-# # kmeans(df, y)
+# df = preprocessing(
+#     data=df, y=df[y], perform_scale=True, perform_ohe=True, drop_first=True)
+
+# kmeans(df, y)
 # dbscan(df, y, eps=3.6, min_samples=7)
-# # classification_model_comparison(df, y, 'mushroom', log_matrix=False)
+# classification_model_comparison(
+#     df, y, 'mushroom', log_matrix=True, show_plot=True)
+# print(linear_regression(
+#     df.loc[:, df.columns.difference(['class'])], df['class']))

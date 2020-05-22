@@ -14,8 +14,6 @@ from time import time
 
 
 def linear_regression(x, y, test_size=0.3, log_time=True):
-    val = []
-    header = ['R2 Score', 'Training Time', 'Predict Time']
     X_train, X_test, y_train, y_test = train_test_split(
         x, y, test_size=test_size, random_state=24)
 
@@ -32,9 +30,6 @@ def linear_regression(x, y, test_size=0.3, log_time=True):
 
 
 def logistic_regression(x, y, test_size=0.3, max_iter=1000, log_time=True):
-    val = []
-    header = ['Accuracy Score', 'Confusion Matrix',
-              'Training Time', 'Predict Time']
     X_train, X_test, y_train, y_test = train_test_split(
         x, y, test_size=test_size, random_state=24)
 
@@ -52,9 +47,6 @@ def logistic_regression(x, y, test_size=0.3, max_iter=1000, log_time=True):
 
 
 def knn(x, y, test_size=0.3, n_neighbors=10, log_time=True):
-    val = []
-    header = ['Accuracy Score', 'Confusion Matrix',
-              'Training Time', 'Predict Time']
     X_train, X_test, y_train, y_test = train_test_split(
         x, y, test_size=test_size, random_state=24)
 
@@ -71,8 +63,6 @@ def knn(x, y, test_size=0.3, n_neighbors=10, log_time=True):
 
 
 def decision_tree(x, y, test_size=0.3, log_time=True):
-    header = ['Accuracy Score', 'Confusion Matrix',
-              'Training Time', 'Predict Time']
     X_train, X_test, y_train, y_test = train_test_split(
         x, y, test_size=0.3, random_state=24)
 
