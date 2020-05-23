@@ -88,15 +88,15 @@ def feature_selection(df, target, show_heat_map=False, show_process=False):
         print('Correlated to', target_name, ': ', candidates)
 
     removed = []
-    # for c1 in candidates:
-    #     for c2 in candidates:
-    #         if (c1 not in removed) and (c2 not in removed):
-    #             if c1 != c2:
-    #                 coef = corr_mat.loc[c1, c2]
-    #                 if coef > 0.6 or coef < -0.6:
-    #                     removed.append(c1)
-    # if show_process:
-    #     print('Removed: ', removed)
+    for c1 in candidates:
+        for c2 in candidates:
+            if (c1 not in removed) and (c2 not in removed):
+                if c1 != c2:
+                    coef = corr_mat.loc[c1, c2]
+                    if coef > 0.6 or coef < -0.6:
+                        removed.append(c1)
+    if show_process:
+        print('Removed: ', removed)
 
     selected_features = [x for x in candidates if x not in removed]
     if show_process:
