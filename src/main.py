@@ -1,3 +1,4 @@
+# %%
 from supervised_learning import *
 from unsupervised_learning import *
 from processing import preprocessing, feature_selection, pca
@@ -17,7 +18,8 @@ def input_comprison(data, y, model=None, log_matrix=True, out_path=None):
         df.loc[:, df.columns.difference([y])], df[y]))
     res[1].append('One Hot Encoded')
 
-    df = preprocessing(data=data, y=data[y], perform_scale=True)
+    df = preprocessing(
+        data=data, y=data[y], perform_scale=True, perform_ohe=True)
     res.append(model(
         df.loc[:, df.columns.difference([y])], df[y]))
     res[2].append('Standard Scaled')
@@ -28,9 +30,9 @@ def input_comprison(data, y, model=None, log_matrix=True, out_path=None):
         df.loc[:, df.columns.difference([y])], df[y]))
     res[3].append('Feature Selection')
 
-    df = preprocessing(data=data, y=data[y], perform_scale=True)
+    df = preprocessing(data=data, y=data[y], perform_scale=False)
     df = pca(df.loc[:, df.columns.difference([y])],
-             df[y], 0.9, show_result=False)
+             df[y], 0.9, show_result=True)
     res.append(model(
         df.loc[:, df.columns.difference([y])], df[y]))
     res[4].append('PCA')
@@ -77,45 +79,39 @@ def classification_model_comparison(data, y, name, log_matrix=True, show_plot=Fa
 
 
 # %%
+# Regression: Test with wine dataset using linear regression and neural network
+#             Test with one hot encoded mushroom dataset using linear regression
+# df = pd.read_csv('data/wine/winequality-red.csv')
+# y = 'quality'
+# df = preprocessing(data=df, y=df[y], perform_scale=True)
+# print(linear_regression(
+#     df.loc[:, df.columns.difference(['quality'])], df['quality'], log_result=False))
+# print(neural_network(df, df[y], is_regression=True,
+#                      log_result=False, epochs=50))
+
+# df = pd.read_csv('data/mushroom/mushrooms.csv')
+# y = 'class'
+# df = df.dropna()
+# df = df.reset_index(drop=True)
+# df = preprocessing(
+#     data=df, y=df[y], perform_scale=True, perform_ohe=True, drop_first=True)
+# print(linear_regression(
+#     df.loc[:, df.columns.difference(['class'])], df['class']))
+
+# %%
+# Classification: Test with student-mat dataset using four models and compare with different data engineering and feature engineering
 # df = pd.read_csv('data/student/student-mat.csv')
 # df['G3'] = df['G3'].apply(lambda x: 1 if x >= 10 else 0)
 # y = 'G3'
+# classification_model_comparison(
+#     df, y, 'student', log_matrix=True, show_plot=False)
+
+# %%
+# Clustering: Test with student-mat dataset
+# df = pd.read_csv('data/student/student-mat.csv')
+# df['G3'] = df['G3'].apply(lambda x: 1 if x >= 10 else 0)
+# y = 'G3'
+# df = preprocessing(df, y)
 # hierarchical(df, y, n_clusters=2, scaling=False, features=0)
 # kmeans(df, y, n_clusters=2)
 # dbscan(df, y, eps=1, min_samples=10)
-# classification_model_comparison(df, y, 'student', log_matrix=True)
-
-# df = preprocessing(
-#     data=df, y=df[y], perform_scale=True, perform_ohe=True, drop_first=True)
-# df = feature_selection(df=df, target=df[y], show_process=False)
-# print(linear_regression(df.loc[:, df.columns.difference(['G3'])], df['G3']))
-
-# %%
-# df = pd.read_csv('data/wine/winequality-red.csv')
-# df['quality'] = df['quality'].apply(lambda x: 0 if x >= 5 else 1)
-# y = 'quality'
-# hierarchical(df, y, n_clusters=2, scaling=False, features=0)
-# kmeans(df, y, n_clusters=2, features=1)
-# dbscan(df, y, eps=2.5, min_samples=20)
-# classification_model_comparison(df, y, 'wine', log_matrix=True)
-# df = preprocessing(data=df, y=df[y], perform_scale=False)
-# print(linear_regression(
-#     df.loc[:, df.columns.difference(['quality'])], df['quality'], log_result=True))
-# neural_network(df, df[y], is_regression=True, log_result=True)
-
-# %%
-df = pd.read_csv('data/mushroom/mushrooms.csv')
-y = 'class'
-# print(df.isnull().sum())
-df = df.dropna()
-df = df.reset_index(drop=True)
-# print(df)
-# df = preprocessing(
-#     data=df, y=df[y], perform_scale=True, perform_ohe=True, drop_first=True)
-# hierarchical(df, y, n_clusters=2, scaling=True, features=1)
-# kmeans(df, y)
-# dbscan(df, y, eps=3.6, min_samples=7)
-classification_model_comparison(
-    df, y, 'mushroom', log_matrix=True, show_plot=True)
-# print(linear_regression(
-#     df.loc[:, df.columns.difference(['class'])], df['class']))

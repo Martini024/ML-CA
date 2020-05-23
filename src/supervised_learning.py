@@ -23,11 +23,11 @@ def linear_regression(x, y, test_size=0.3, log_result=False):
     linReg.fit(X_train, y_train)
     end_train = time()
 
-    y_pred = linReg.predict(X_test)
+    y_pred = linReg.predict(X_test).round()
     end_pred = time()
 
+    print(linReg.score(X_test, y_test))
     if log_result:
-        print(linReg.score(X_test, y_test))
         for i in np.arange(len(y_pred)):
             print('Actual: ', y_test[i], ', Predicted: ', y_pred[i])
     return [r2_score(y_test, y_pred), end_train -
@@ -51,7 +51,7 @@ def logistic_regression(x, y, test_size=0.3, max_iter=1000, log_time=True):
         y_test, y_pred), end_train - start, end_pred - end_train]
 
 
-def knn(x, y, test_size=0.3, n_neighbors=10, log_time=True):
+def knn(x, y, test_size=0.3, n_neighbors=33, log_time=True):
     X_train, X_test, y_train, y_test = train_test_split(
         x, y, test_size=test_size, random_state=24)
 
@@ -84,7 +84,7 @@ def decision_tree(x, y, test_size=0.3, log_time=True):
         y_test, y_pred), end_train - start, end_pred - end_train]
 
 
-def neural_network(x, y, test_size=0.3, log_result=False, is_regression=False):
+def neural_network(x, y, test_size=0.3, log_result=False, is_regression=False, epochs=50):
     X_train, X_test, y_train, y_test = train_test_split(
         x.values, y.values, test_size=0.3, random_state=24)
     if not is_regression:
@@ -102,13 +102,15 @@ def neural_network(x, y, test_size=0.3, log_result=False, is_regression=False):
         model = Sequential(
             [
                 layers.Dense(128, activation='relu'),
+                layers.Dense(64, activation='relu'),
                 layers.Dense(1, activation='linear')
             ]
         )
         model.compile(optimizer='adam',
                       loss='mse', metrics=['mae'])
     start = time()
-    history = model.fit(X_train, y_train, batch_size=64, epochs=5, verbose=0)
+    history = model.fit(X_train, y_train, batch_size=64,
+                        epochs=epochs, verbose=0)
     end_train = time()
 
     # perform prediction
@@ -125,17 +127,19 @@ def neural_network(x, y, test_size=0.3, log_result=False, is_regression=False):
         return [accuracy_score(y_test, y_pred.round()), confusion_matrix(
             y_test, y_pred.round()), end_train - start, end_pred - end_train]
     else:
+        loss, mae = model.evaluate(X_test, y_test, verbose=0)
+        print('Loss = ', loss, ', Mae = ', mae)
         if log_result:
-            loss, mae = model.evaluate(X_test, y_test, verbose=0)
-            print('Loss = ', loss, ', Mae = ', mae)
             for i in np.arange(len(y_pred)):
                 print('Actual: ', y_test[i], ', Predicted: ', y_pred[i])
-            fig = go.Figure()
-            fig.add_trace(go.Scattergl(y=history.history['loss'],
-                                       name='Loss'))
-            fig.add_trace(go.Scattergl(y=history.history['mae'],
-                                       name='Mae'))
-            fig.update_layout(height=500, width=700,
-                              xaxis_title='Epoch',
-                              yaxis_title='Loss')
-            fig.show()
+        fig = go.Figure()
+        fig.add_trace(go.Scattergl(y=history.history['loss'],
+                                   name='Loss'))
+        fig.add_trace(go.Scattergl(y=history.history['mae'],
+                                   name='Mae'))
+        fig.update_layout(height=500, width=700,
+                          xaxis_title='Epoch',
+                          yaxis_title='Loss')
+        fig.show()
+        return [accuracy_score(y_test, y_pred.round()), confusion_matrix(
+            y_test, y_pred.round()), end_train - start, end_pred - end_train]
