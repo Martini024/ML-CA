@@ -141,5 +141,5 @@ def neural_network(x, y, test_size=0.3, log_result=False, is_regression=False, e
                           xaxis_title='Epoch',
                           yaxis_title='Loss')
         fig.show()
-        return [accuracy_score(y_test, y_pred.round()), confusion_matrix(
-            y_test, y_pred.round()), end_train - start, end_pred - end_train]
+        return [r2_score(y_test, y_pred), end_train -
+                start, end_pred - end_train]

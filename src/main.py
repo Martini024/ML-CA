@@ -1,4 +1,3 @@
-# %%
 from supervised_learning import *
 from unsupervised_learning import *
 from processing import preprocessing, feature_selection, pca
@@ -6,6 +5,7 @@ import pandas as pd
 import seaborn as sns
 
 
+# compare different data engineering and feature engineering impact on the outcome
 def input_comprison(data, y, model=None, log_matrix=True, out_path=None):
     res = []
     df = preprocessing(data=data, y=data[y])
@@ -47,6 +47,7 @@ def input_comprison(data, y, model=None, log_matrix=True, out_path=None):
     return df
 
 
+# perform classification comparing four model outcome
 def classification_model_comparison(data, y, name, log_matrix=True, show_plot=False):
     res = input_comprison(data, y, model=logistic_regression, log_matrix=log_matrix,
                           out_path='reports/supervised_learning/' + name + '/logistic_regression_' + name + '.csv')
@@ -78,40 +79,36 @@ def classification_model_comparison(data, y, name, log_matrix=True, show_plot=Fa
         plt.show()
 
 
-# %%
 # Regression: Test with wine dataset using linear regression and neural network
 #             Test with one hot encoded mushroom dataset using linear regression
-# df = pd.read_csv('data/wine/winequality-red.csv')
-# y = 'quality'
-# df = preprocessing(data=df, y=df[y], perform_scale=True)
-# print(linear_regression(
-#     df.loc[:, df.columns.difference(['quality'])], df['quality'], log_result=False))
-# print(neural_network(df, df[y], is_regression=True,
-#                      log_result=False, epochs=50))
+df = pd.read_csv('data/wine/winequality-red.csv')
+y = 'quality'
+df = preprocessing(data=df, y=df[y], perform_scale=True)
+print(linear_regression(
+    df.loc[:, df.columns.difference(['quality'])], df['quality'], log_result=False))
+print(neural_network(df, df[y], is_regression=True,
+                     log_result=False, epochs=20))
 
-# df = pd.read_csv('data/mushroom/mushrooms.csv')
-# y = 'class'
-# df = df.dropna()
-# df = df.reset_index(drop=True)
-# df = preprocessing(
-#     data=df, y=df[y], perform_scale=True, perform_ohe=True, drop_first=True)
-# print(linear_regression(
-#     df.loc[:, df.columns.difference(['class'])], df['class']))
+df = pd.read_csv('data/mushroom/mushrooms.csv')
+y = 'class'
+df = df.dropna()
+df = df.reset_index(drop=True)
+df = preprocessing(
+    data=df, y=df[y], perform_scale=True, perform_ohe=True, drop_first=True)
+print(linear_regression(
+    df.loc[:, df.columns.difference(['class'])], df['class']))
 
-# %%
 # Classification: Test with student-mat dataset using four models and compare with different data engineering and feature engineering
-# df = pd.read_csv('data/student/student-mat.csv')
-# df['G3'] = df['G3'].apply(lambda x: 1 if x >= 10 else 0)
-# y = 'G3'
-# classification_model_comparison(
-#     df, y, 'student', log_matrix=True, show_plot=False)
+df = pd.read_csv('data/student/student-mat.csv')
+df['G3'] = df['G3'].apply(lambda x: 1 if x >= 10 else 0)
+y = 'G3'
+classification_model_comparison(
+    df, y, 'student', log_matrix=True, show_plot=True)
 
-# %%
 # Clustering: Test with student-mat dataset
-# df = pd.read_csv('data/student/student-mat.csv')
-# df['G3'] = df['G3'].apply(lambda x: 1 if x >= 10 else 0)
-# y = 'G3'
-# df = preprocessing(df, y)
-# hierarchical(df, y, n_clusters=2, scaling=False, features=0)
-# kmeans(df, y, n_clusters=2)
-# dbscan(df, y, eps=1, min_samples=10)
+df = pd.read_csv('data/student/student-mat.csv')
+df['G3'] = df['G3'].apply(lambda x: 1 if x >= 10 else 0)
+y = 'G3'
+hierarchical(df, y, n_clusters=2, scaling=False, features=0)
+kmeans(df, y, n_clusters=2, features=0, show_elbow=True)
+dbscan(df, y, eps=1, min_samples=10)

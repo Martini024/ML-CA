@@ -47,9 +47,6 @@ def kmeans(df, y, n_clusters=2, features=0, show_elbow=False):
     plt.ylabel(x.columns[1])
     plt.show()
 
-    print(accuracy_score(df[y], clusters), confusion_matrix(
-        df[y], clusters))
-
     # Part 2: Find the optimum number of clusters for k-means
     if show_elbow:
         wcss = []
@@ -152,6 +149,3 @@ def hierarchical(df, y, n_clusters=2, scaling=True, features=0, show_dendrogram=
     plt.xlabel(x.columns[0])
     plt.ylabel(x.columns[1])
     plt.show()
-
-    print(accuracy_score(df[y], clusters), confusion_matrix(
-        df[y], clusters))
