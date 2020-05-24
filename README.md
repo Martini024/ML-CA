@@ -1,16 +1,27 @@
 # Machine Learning -- Continuous Assessment
 
 ## Dataset
-:mushroom: [mushroom.csv](https://www.kaggle.com/uciml/mushroom-classification/download)
-:book: [student](https://archive.ics.uci.edu/ml/datasets/Student+Performance#)
+:mushroom: [mushroom.csv](https://archive.ics.uci.edu/ml/datasets/Mushroom)
+:book: [student.mat.csv](https://archive.ics.uci.edu/ml/datasets/Student+Performance#)
+:wine_glass: [winequality-red.csv](https://archive.ics.uci.edu/ml/datasets/Wine+Quality)
 
-## Relevant Paper
-Describe student dataset, including attributes description, problem statement and ml methods applied ...
+## Structure
+.
+|-- data Dataset for testing
+|-- reports Evaluation result for model comparison
+|-- src Model and processing package
+|   |-- main.py
+|   |-- processing.py
+|   |-- supervised_learning.py
+|   |-- unsupervised_learning.py
+|-- README.md
 
-[P. Cortez and A. Silva. Using Data Mining to Predict Secondary School Student Performance. In A. Brito and J. Teixeira Eds., Proceedings of 5th FUture BUsiness TEChnology Conference (FUBUTEC 2008) pp. 5-12, Porto, Portugal, April, 2008, EUROSIS, ISBN 978-9077381-39-7.](http://www3.dsi.uminho.pt/pcortez/student.pdf)
+main.py -> Using processing and ML packages to perform testing on the dataset and generate reports
 
-## Classification -- Supervised Learning
-- Logistic Regression
-- K-NN Classification
-- Decision Trees
-- Neural Network
+processing.py -> Include preprocessing function for data engineering (options for label encoding, dummy encoding, scaling)
+                 Feature selection using pearson correlation, PCA for feature engineering
+
+supervised_learning.py -> Include linear regression, logistic regression, knn, decision tree, neural network 
+                          for regression and classification
+
+unsupervised_learning.py -> Include kmeans, hierarchical, dbscan for clustering
